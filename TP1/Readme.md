@@ -72,3 +72,35 @@ To put if we want some constraints check in the setter method to avoid setting a
 1. See code
 2. If we use a simple array, and add a number of points more than the size of the array, we will get an exception : Index "x" out of bounds for length "y" , with y the size of the array.                  
 To fix that we need to use a resizable array, to add and remove elements whenever we want. 
+3. See code
+4. See code
+5. A NullPointerException is encountered (because the method equals(p) of the Point class does not check if the point is null or not).
+6. If we change the array by a LinkedList, the method pointCapacity has no sense anymore, because a linkedlist does not have capacity, it doesn't allocate memory before the items are added to the list.
+The other methods are updated.
+
+##Exercice 5 : Mutability and Circle
+1. In a mutable way or in non mutable way 
+In a non mutable way : (1)
+   public class Point {
+      private final int x;    
+      private final int y;    
+      public Point translate(int dx, int dy){   
+          return new Point(this.x+dx, this.y+dy);
+   } 
+In a mutable way :  (2)
+   public class Point {
+   private int x;    
+   private int y;    
+   public void translate(int dx, int dy){   
+      this.x+=ds; 
+      this.y+=dy;
+   }  
+   I chose (1) because my variables `x` and `y` are private and final.
+5.  The circles c and c2 have the same Point object, so we have to create another Point object with the same coordinates for c2.
+6.  I have no problem with using getCenter().translate(); because the center of my circle doesn't change when we translate it ( translate method in the Point class returns a new Point, so the center of the current Point is still the same )
+9. The method contains shou ld be static, so it can be called without creating an object of the class Circle. 
+
+##Exercice 6 : Ring 
+
+1. It is interesting to use inheritance for the Ring class, however many methods will have to be modified to make them compatible with the ring.
+2. The problem is that the System.out.println prints only the reference of the Ring Object created.
