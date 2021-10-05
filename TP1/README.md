@@ -1,6 +1,6 @@
-##Exercice 1 : Eclipse
+## Exercice 1 : Eclipse
 
-2.  syst Crtl + sp in main :
+2. syst Crtl + sp in main :
    It shows  System.out.println();
 
 3.  toStr + Crtl + sp in class :
@@ -17,7 +17,7 @@
 
 6. Rename the class | Rename the int field
 
-###Exercice 2 : Point
+## Exercice 2 : Point
 
 1. It works because we call the two private fields in the same class, so we have full access to the variables even if they are private.
         
@@ -54,7 +54,7 @@ To put if we want some constraints check in the setter method to avoid setting a
 
 9. To have the (x,y) we define the toString function ( See code )
 
-##Exercice 3 : Equality
+## Exercice 3 : Equality
 
 1. True then False
    The first one is True because p2 and p1 both have the same addresses, and they both point to the same memory location    
@@ -68,7 +68,7 @@ To put if we want some constraints check in the setter method to avoid setting a
    To fix that, we have to override the function equals used by indexOf, to compare only the content of the elements of the list, and the element which we are looking for.  
    In our case, I rename the function isSameAS(Point p) to the override function equals(Object obj) 
 
-##Exercice 4 : Polyline
+## Exercice 4 : Polyline
 1. See code
 2. If we use a simple array, and add a number of points more than the size of the array, we will get an exception : Index "x" out of bounds for length "y" , with y the size of the array.                  
 To fix that we need to use a resizable array, to add and remove elements whenever we want. 
@@ -78,7 +78,7 @@ To fix that we need to use a resizable array, to add and remove elements wheneve
 6. If we change the array by a LinkedList, the method pointCapacity has no sense anymore, because a linkedlist does not have capacity, it doesn't allocate memory before the items are added to the list.
 The other methods are updated.
 
-##Exercice 5 : Mutability and Circle
+## Exercice 5 : Mutability and Circle
 1. In a mutable way or in non mutable way 
 In a non mutable way : (1)
    public class Point {
@@ -100,7 +100,7 @@ In a mutable way :  (2)
 6.  I have no problem with using getCenter().translate(); because the center of my circle doesn't change when we translate it ( translate method in the Point class returns a new Point, so the center of the current Point is still the same )
 9. The method contains shou ld be static, so it can be called without creating an object of the class Circle. 
 
-##Exercice 6 : Ring 
+## Exercice 6 : Ring 
 
 1. It is interesting to use inheritance for the Ring class, however many methods will have to be modified to make them compatible with the ring.
 2. The problem is that the System.out.println prints only the reference of the Ring Object created.
