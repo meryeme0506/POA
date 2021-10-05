@@ -1,4 +1,7 @@
 package fr.dauphine.javaavance.td1;
+
+import java.util.ArrayList;
+
 /**
  * Author : Meryeme HAMAN
  */
@@ -64,10 +67,10 @@ public class Circle {
     /**
      *
      * @param p a point
-     * @param circles different circles
+     * @param circles ArrayList that contains different circles
      * @return True if the point is inside one the circles False otherwise
      */
-    public static boolean contains(Point p, Circle...circles) {
+    public static boolean contains(Point p, ArrayList<Circle> circles) {
         for (Circle c : circles) {
             if (!(c.contains(p)))
                 return false;

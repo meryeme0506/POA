@@ -2,6 +2,8 @@ package fr.dauphine.javaavance.td1;
 
 import fr.dauphine.javaavance.td1.exceptions.WrongRaduis;
 
+import java.util.ArrayList;
+
 /**
  * Author : Meryeme HAMAN
  */
@@ -64,10 +66,10 @@ public class Ring {
     /**
      *
      * @param p a point
-     * @param rings different rings
+     * @param rings an ArrayList that contains different rings
      * @return True if the point is inside one the rings False otherwise
      */
-    public static boolean contains(Point p, Ring...rings) {
+    public static boolean contains(Point p, ArrayList<Ring> rings) {
         for (Ring r : rings) {
             if (!r.contains(p))
                 return false;

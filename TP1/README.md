@@ -98,7 +98,7 @@ In a mutable way :  (2)
    I chose (1) because my variables `x` and `y` are private and final.
 5.  The circles c and c2 have the same Point object, so we have to create another Point object with the same coordinates for c2.
 6.  I have no problem with using getCenter().translate(); because the center of my circle doesn't change when we translate it ( translate method in the Point class returns a new Point, so the center of the current Point is still the same )
-9. The method contains shou ld be static, so it can be called without creating an object of the class Circle. 
+9. The method contains should be static, so it can be called without creating an object of the class Circle, and we should use in arrayList to represent the different circles.
 
 ## Exercice 6 : Ring 
 
