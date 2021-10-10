@@ -1,0 +1,110 @@
+/**
+ * Author : Meryeme HAMAN
+ */
+
+Exercice 1 :
+1. 42
+   42
+   24
+   24
+   24
+   24
+42 : car c'est la méthode meth() de la classe Mere qui est appelée
+42: car on affiche la valeur renvoyée par la méthode meth() de la classe Mere
+24 : car c'est la méthode meth() de la classe Fille qui est appelée
+24 : car on affiche la valeur renvoyée par la méthode meth() de la classe Fille
+24 : car mereFille est un Object de la classe Fille, et donc c'est la fonction meth() de la classe Fille qui est appelée
+24 : car on affiche la valeur renvoyée par la méthode meth() de la classe Fille
+
+2. Si on est dans la classe Fille, on accède à deux méthodes meth(), la première est celle de la classe Fille, et la deuxième est celle de la classe Mere
+Pour avoir accès à la première :
+this.meth();
+Pour Avoir accès à la deuxième
+public int meth1(){
+   return super.meth();
+ }
+Si on est dans la classe Main, on accède à une seule méthode meth(), celle de la classe Mere ou à celle de la classe Fille
+
+3. Si les méthodes meth() étaient statiques, on aura comme résultat du main :
+42
+42
+24
+42
+42
+42
+Car La classe Fille est capable d'accéder à la méthode statique meth() de Mere sans avoir besoin de qualifier le nom - mais elle n'obtient pas sa propre copie. Elle regarde exactement le même objet en mémoire, et donc on ne peut pas changer la valeur vue qu'elle est statique, ce qui explique le résultat 42.
+La seule fois où on obtient 24, c'est quand on appelle  directement la méthode meth() de la classe Fille en créant un objet Fille
+** pas de redéfinition méthodes, statique
+** polymorphisme non statique
+4. Si meth étaient des champs, on aurait :
+42
+42
+24
+42
+42
+42
+Car la valeur du champs protected meth, ne change qu'au niveau de du constructeur de Fille, et donc on aura la valeur 24 qu'on appellant (fille.meth)
+
+Exercice 2 :
+Note 1.
+    Si on leve une exception au niveau de la classe mere il faut que la classe file  répond également aux normes de l'exception
+    Exception ==> classe Mere
+    Exception IO, Exception NullPointer ==> Redéfinition au niveau de la classe Fille , More strict
+Note 2.
+    classe Mere : Public
+    classe Fille : Private or Protected or Sans
+    classe Mere : Protected
+    classe Fille : Protected, Private
+    classe Mere : Private
+    classe Fille : Private
+    classe Mere : Sans
+    classe Fille : Tout sans private
+Note 3.
+    Méthode de la classe Mere ==> Fille return un type primitif
+    Int ==> int
+    Objet : No problem
+1. On aura des erreurs de compilation dans la classe Fille héritant de la classe Mere, au niveau de :
+La méthode 'h()' , car dans la classe Mere elle renvoie un int , et donc dans la classe Fille elle doit renvoyer  également un int au lieu de 'char'
+La méthode 'i()' , car dans la classe Mere elle ne renvoie rien 'void', et donc dans la classe Fille, elle doit ne renvoyer rien au lieu de 'int'
+La méthode 'k()' , car la méthode k() de la classe Mere lève une exception 'Exception', et donc la méthode k() de la classe Fille doit lever à son tour une exception plus stricte que l'exception définie dans la méthode de la classe Mere.
+
+2. Les méthodes h(), i(), k() sont retirées
+
+3.
+La surcharge consiste à avoir des méthodes de même noms mais de profils différents dans une même classe ou dans une classe héritante. Le choix se fais lors de la compilation selon les arguments.
+La redéfinition consiste à avoir des méthodes de même noms et de même profils dans deux classes dont l'une hérite de l'autre. Le choix se fais lors de la compilation selon le type réel de l'objet.
+
+Dans la classe Mere :
+Les surcharges :
+void c(Mere mere)
+
+Dans la classe Fille :
+Les surcharges :
+c(Fille b),d(Mere mere)
+Les redéfinitions :
+a() , b(Fille fille), c(Mere mere),d(),e(), f(), j(), l(),m()
+
+4.
+En compilant le code de la classe Main, on a des erreurs de compilation au niveau de :
+mere.miage() et mereFille.miage() : car la classe Mere n'a pas une méthode miage(), pour éviter cet erreur on peut soit définir la méthode 'miage()' dans la classe Mere, ou Cast l'objet mereFille : ((Fille) mereFille).miage();
+
+En commentant les deux lignes précédentes, on a l'affichage suivant :
+Miage : En créant un objet Fille, on fait appel direct à la méthode miage() de la classe Fille d'où la fichage de "Miage"
+Miage : En faisant un "Cast" à l'objet mereFille, ce dernier devient une instance de l'objet Fille, et donc on appelle directement la méthode miage() de la classe Fille d'où la fichage de "Miage"
+Mere_a : mere est un objet Mere, et donc on fait appel à la méthode a() de la classe Mere d'où l'affichage de  "Mere_a"
+Fille_a : Ön fait appel à la méthode a() de la classe Fille.
+Fille_a : On fait appel à la méthode a() de la classe Fille, malgré le fait de 'Cast' l'objet mereFille, on utilise la méthode de l'objet de base.
+Fille_b(Fille) : On fait appel à la méthode b(Fille fille) de la classe Fille
+Mere_c : on fait appel à la méthode c() de la classe Mere
+Fille_c(Mere) : On fait appel à la méthode c(Mere mere) de la classe Fille
+Fille_c(Mere) :  On fait appel à la méthode c(Mere mere) de la classe Fille, l'objet mereFille est un objet Mere
+Fille_c(Mere) : On fait appel à la méthode c(Mere mere) de la classe Fille, l'objet fille est instanceof Mere
+Fille_c(Fille) : On fait appel à la méthode c(Fille fille) de la classe Fille
+static Mere_d : On fait appel à la méthode d() de la classe Mere
+static Mere_d : On fait appel à la méthode d() de la classe Mere, on fait appel à la méthode redéfinie de la classe Fille que lorsque on a un objet Fille comme fille
+Mere_f : On fait appel à la méthode printF() de la classe Mere qui fait à son tour appel à la méthode f() de la classe Mere
+Mere_f : On fait appel à la méthode printF() de la classe Mere qui fait à son tour appel à la méthode f() de la classe Mere, on n'a ni redéfini ni surchargé la méthode printF() dans la classe Fille
+Fille_j : On fait appel à la méthode j() de la classe Fille
+Mere_k :  On fait appel à la méthode k() de la classe Mere
+Fille_l :  On fait appel à la méthode l() de la classe Fille
+Fille_m :  On fait appel à la méthode m() de la classe Mere
