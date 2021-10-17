@@ -22,9 +22,9 @@ Jframe : directement utilise le mécanise GUI de l'ordinateur , différence entr
 Différence entre JPanel et JFrame :
 JPanel et JFrame sont deux classes couramment utilisées en Java ; JPanel peut être considéré comme un conteneur général, qui est utilisé dans le cas de fonctions complexes ou plus importantes qui nécessitent le regroupement de différents composants ; d'autre part, JFrame est généralement utilisé pour héberger des éléments simples utilisés dans une fenêtre comme une bordure, une barre de titre, des contrôles, des gestionnaires d'événements, etc.
 
-3.
-4.tlfn or repaint
+
 5. Elle est également appelée lors de l'appel de la fonction add par l'objet frame :  frame.add(d);
+
 6.
 AWT : Abstract Window Toolkit
 Il s'agit d'une API dépendant de la plateforme pour développer des applications GUI (Graphical User Interface) ou basées sur des fenêtres en Java.
