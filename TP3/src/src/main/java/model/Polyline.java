@@ -1,10 +1,11 @@
-package src.main.java.fr.dauphine.hamanmeryeme.ja.shapes;
+package src.main.java.model;
 
-import java.awt.*;
+
+import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class Polyline extends Shape{
+public class Polyline extends Shape {
 
 	private LinkedList<Point> points;
 	

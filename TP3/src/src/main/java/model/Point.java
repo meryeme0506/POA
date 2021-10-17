@@ -1,12 +1,13 @@
-package src.main.java.fr.dauphine.hamanmeryeme.ja.shapes;
+package src.main.java.model;
 
-import java.awt.*;
+
+import java.awt.Graphics;
 
 /**
  * Author : Meryeme HAMAN
  */
 
-public class Point extends Shape{
+public class Point extends Shape {
 	
 	private final int x;
 	private final int y;

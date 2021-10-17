@@ -1,9 +1,11 @@
 package src.main.java.view;
 
 import src.main.java.controller.MouseController;
+import src.main.java.exceptions.WrongRaduis;
+import src.main.java.model.*;
+import src.main.java.model.Point;
 import src.main.java.model.Shape;
-import src.main.java.model.Circle;
-import src.main.java.fr.dauphine.hamanmeryeme.ja.shapes.Point;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -37,12 +39,16 @@ public class MyDisplay extends JPanel {
 
     }
 
-    public static void main(String []args){
+    public static void main(String []args) throws WrongRaduis {
         JFrame frame = new JFrame("Java Avancé - Graphic Display");
         frame.setSize(new Dimension(500,500));
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        MyDisplay d = new MyDisplay(new Circle(new Point(250,250),100));
-        frame.add(d);
+       /* MyDisplay d1 = new MyDisplay(new Point(250,250));
+        frame.add(d1);
+        MyDisplay d2 = new MyDisplay(new Circle(new Point(250,250),100));
+        frame.add(d2);*/
+        MyDisplay d3 = new MyDisplay(new Ring(new Point(250,250),100,200));
+        frame.add(d3);
      }
 }

@@ -1,7 +1,7 @@
 package src.main.java.user;
 
 import src.main.java.controller.MouseController;
-import src.main.java.fr.dauphine.hamanmeryeme.ja.shapes.Point;
+import src.main.java.model.Point;
 import src.main.java.model.Circle;
 import src.main.java.model.Shape;
 import src.main.java.view.MyDisplay;

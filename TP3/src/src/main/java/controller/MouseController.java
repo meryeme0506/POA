@@ -2,7 +2,7 @@ package src.main.java.controller;
 
 import src.main.java.model.Shape;
 import src.main.java.view.MyDisplay;
-import src.main.java.fr.dauphine.hamanmeryeme.ja.shapes.Point;
+import src.main.java.model.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 

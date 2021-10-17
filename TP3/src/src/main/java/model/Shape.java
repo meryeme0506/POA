@@ -1,7 +1,5 @@
 package src.main.java.model;
 
-import src.main.java.fr.dauphine.hamanmeryeme.ja.shapes.Point;
-
 import java.awt.*;
 
 /**

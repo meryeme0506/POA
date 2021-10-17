@@ -1,4 +1,4 @@
-package src.main.java.fr.dauphine.hamanmeryeme.ja.shapes.exceptions;
+package src.main.java.exceptions;
 
 /**
  * Author : Meryeme HAMAN
