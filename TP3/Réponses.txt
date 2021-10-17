@@ -1,0 +1,54 @@
+1.
+Graphics :
+La classe Graphics est la classe de base abstraite pour tous les contextes graphiques qui permettent à une application de dessiner sur des composants réalisés sur différents dispositifs, ainsi que sur des images hors écran.
+
+Graphics 2D :
+La classe Graphics2D hérite de la classe Graphics pour fournir un contrôle plus sophistiqué de la géométrie, des transformations de coordonnées, de la gestion des couleurs et de la mise en page du texte. Il s'agit de la classe fondamentale pour le rendu des formes, du texte et des images en deux dimensions sur la plate-forme Java(tm).
+hérite graphic et + flexible + de méthodes QUE Craphifcs
+Différence entre Graphics et Graphics2D :
+Il y a au moins deux différences fondamentales à prendre en considération entre le dessin utilisant les graphiques originaux et les graphiques 2D.
+La première est la représentation de la chose à dessiner et la seconde concerne les espaces de coordonnées.
+Les deux objets de base sont appelés Graphics et Graphics2D.
+Graphics est le paramètre de la méthode paint et un objet Graphics2D peut être créé à partir d'un objet Graphics.
+
+
+JPanel :
+La classe JPanel est un conteneur léger générique, elle fournit des conteneurs polyvalents pour les composants légers. Par défaut, les panneaux n'ajoutent aucune couleur à l'exception de leur propre arrière-plan.
+
+JFrame :
+La classe JFrame est légèrement incompatible avec Frame. Comme tous les autres conteneurs de premier niveau JFC/Swing.
+un JFrame contient un JRootPane comme seul enfant. Le volet de contenu fourni par le volet racine doit, en règle générale, contenir tous les composants non-menu affichés par le JFrame.
+Jframe : directement utilise le mécanise GUI de l'ordinateur , différence entre windows et mac
+Différence entre JPanel et JFrame :
+JPanel et JFrame sont deux classes couramment utilisées en Java ; JPanel peut être considéré comme un conteneur général, qui est utilisé dans le cas de fonctions complexes ou plus importantes qui nécessitent le regroupement de différents composants ; d'autre part, JFrame est généralement utilisé pour héberger des éléments simples utilisés dans une fenêtre comme une bordure, une barre de titre, des contrôles, des gestionnaires d'événements, etc.
+
+3.
+4.tlfn or repaint
+5. Elle est également appelée lors de l'appel de la fonction add par l'objet frame :  frame.add(d);
+6.
+AWT : Abstract Window Toolkit
+Il s'agit d'une API dépendant de la plateforme pour développer des applications GUI (Graphical User Interface) ou basées sur des fenêtres en Java.
+Elle est lourde à utiliser car elle est générée par le système d'exploitation hôte du système. Il contient un grand nombre de classes et de méthodes, qui sont utilisées pour créer et gérer les GUI.
+
+SWING :
+Swing est une interface utilisateur graphique (GUI) Java légère qui est utilisée pour créer diverses applications.
+Swing possède des composants qui sont indépendants de la plate-forme. Il permet à l'utilisateur de créer des boutons et des barres de défilement.
+Swing comprend des paquets permettant de créer des applications de bureau en Java. Les composants Swing sont écrits en langage Java. Ils font partie des Java Foundation Classes (JFC).
+
+Différence entre AWT and SWING :
+1.
+AWT est une API pour développer des applications GUI en java
+Swing fait partie de Java Foundation Classes et qui est utilisée pour créer diverses applications
+2.
+Les composants de Java AWT sont très lourds.
+Les composants de Java Swing sont légers.
+3.
+Java AWT a comparativement moins de fonctionnalités que Swing.
+Java Swing a plus de fonctionnalités par rapport à AWT.
+4.
+Le temps execution de AWT est plus important que celui de SWING
+5.
+Les composants de AWT dépendent de la plateforme
+Les composant de Swing ne dépendent pas de la plateforme
+6.
+AWT ne supporte pas le MVC contrairement au SWING
