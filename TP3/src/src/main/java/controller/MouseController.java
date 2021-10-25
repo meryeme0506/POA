@@ -20,7 +20,6 @@ public class MouseController implements MouseMotionListener {
     }
     @Override
     public void mouseDragged(MouseEvent e) {
-
         return;
     }
     @Override
