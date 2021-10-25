@@ -1,0 +1,28 @@
+Exo 2 :
+Cell<T>
+MyList<T>
+public T get(int i)
+public int sumLetter(){
+int sum = 0;
+cell<T> c= first;
+for(i=0...)
+    T s=(T) c.getData();
+    sum+=s.toString.length();
+    c.getNext();
+  }
+  return sum;
+ }
+ Exo 3 :
+ put calcule le hashCode de la clé :
+ h1 = hash(p1)
+ index = h1 &(n-1) bitwise , avec n = size ==> cl 1 indice 1
+ p2 :
+  h2 = hash(p2)
+  index = h2 &(n-1) bitwise , avec n = size ==> cl 2 indice 1
+  pour contains, il compare les deux hash
+
+2 elts equals ==> same hashCode
+Solution :
+Redéfinition de hashCode() et equals()
+Equals : DONE
+if x and y are equals so they ll have the same hashCode()
