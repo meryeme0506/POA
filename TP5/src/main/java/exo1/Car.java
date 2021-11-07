@@ -37,4 +37,20 @@ public class Car {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Car) {
+            Car car =(Car) obj;
+            if((brand==car.brand)&(value==car.value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (value^(value));
+    }
+
 }

@@ -50,4 +50,12 @@ public class Garage {
                 return c;
         return null;
     }
+
+    public void remove(Car car) {
+        for(Car c : cars) {
+            if(c.equals(car)) {
+                cars.remove(c);
+            }
+        }
+    }
 }
