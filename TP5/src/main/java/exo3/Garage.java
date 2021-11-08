@@ -64,10 +64,13 @@ public class Garage {
     }
 
     public void protectionism(String brand) {
+        Garage garage = new Garage();
         for(int i=0;i<vehicules.size();i++) {
             if(vehicules.get(i).getBrand().equals(brand)) {
-                vehicules.remove(i);
+                garage.add(vehicules.get(i));
             }
+        }for(Vehicule v : garage.getVehicles()){
+            vehicules.remove(v);
         }
     }
 }
