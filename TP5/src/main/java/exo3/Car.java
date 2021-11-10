@@ -20,9 +20,6 @@ public class Car extends Vehicule {
         return (super.getValue() - vetuste*1000);
     }
 
-    @Override
-    public int hashCode() {
-        return (int) (super.getValue()^(super.getValue()));
-    }
+
 
 }

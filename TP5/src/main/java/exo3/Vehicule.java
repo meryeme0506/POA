@@ -1,7 +1,9 @@
 package main.java.exo3;
 
 
-public class Vehicule {
+
+public abstract class Vehicule implements Comparable<Vehicule> {
+
     private final String brand;
     private final long value;
     private Discount discount;
@@ -46,6 +48,15 @@ public class Vehicule {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        int res = 0;
+        for (int i = 0 ; i<brand.length() ; i++) {
+            res+= brand.codePointAt(i);
+        }
+        return (int) value + res;
+    }
+
     public long getVehicleDiscount(){
         return discount.getDiscount();
     }
@@ -58,8 +69,20 @@ public class Vehicule {
         isOnSolde=true;
     }
 
+    public void setVehicleOffSolde(){
+        isOnSolde=false;
+    }
+
     public boolean isOnSolde(){
         return isOnSolde;
+    }
+
+    public int compareTo(Vehicule v) {
+        if(brand.compareTo(v.brand) > 0 && value > v.getValue())
+            return 1;
+        else if(brand.compareTo(v.brand) < 0 && value < v.getValue())
+            return -1;
+        return 0;
     }
 
 

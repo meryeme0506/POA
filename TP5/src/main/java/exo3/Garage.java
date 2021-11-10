@@ -1,11 +1,10 @@
 package main.java.exo3;
 
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 
-public class Garage {
+public class Garage  {
 
-    private ArrayList<Vehicule> vehicules;
+    private List<Vehicule> vehicules;
     private static int id;
 
 
@@ -16,6 +15,7 @@ public class Garage {
 
     public void add(Vehicule v) {
         vehicules.add(Objects.requireNonNull(v));
+        Collections.sort(vehicules);
     }
 
     public boolean contains(Vehicule v){
@@ -27,7 +27,7 @@ public class Garage {
         return id;
     }
 
-    public ArrayList<Vehicule> getVehicles() {
+    public List<Vehicule> getVehicles() {
         return vehicules;
     }
 
@@ -64,13 +64,25 @@ public class Garage {
     }
 
     public void protectionism(String brand) {
-        Garage garage = new Garage();
-        for(int i=0;i<vehicules.size();i++) {
-            if(vehicules.get(i).getBrand().equals(brand)) {
-                garage.add(vehicules.get(i));
+        for (Iterator<Vehicule> iter = vehicules.iterator(); iter.hasNext(); ) {
+            Vehicule v = iter.next();
+            if (v.getBrand().equals(brand)) {
+                iter.remove();
             }
-        }for(Vehicule v : garage.getVehicles()){
-            vehicules.remove(v);
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Garage) {
+            Garage garage2 =(Garage) obj;
+            if(vehicules.equals(garage2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 }

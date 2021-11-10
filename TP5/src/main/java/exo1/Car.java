@@ -50,7 +50,11 @@ public class Car {
 
     @Override
     public int hashCode() {
-        return (int) (value^(value));
+        int res = 0;
+        for (int i = 0 ; i<brand.length() ; i++) {
+            res+= brand.codePointAt(i);
+        }
+        return (int) value + res;
     }
 
 }
