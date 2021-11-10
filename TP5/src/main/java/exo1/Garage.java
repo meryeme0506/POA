@@ -1,6 +1,8 @@
 package main.java.exo1;
 
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Garage {
@@ -43,6 +45,10 @@ public class Garage {
             sum+=c.getValue();
         return sum;
     }
+    public List<Car> getCars() {
+        return cars;
+    }
+
 
     public Car firstCarByBrand(String brand){
         for( Car c : cars)
@@ -52,10 +58,6 @@ public class Garage {
     }
 
     public void remove(Car car) {
-        for(Car c : cars) {
-            if(c.equals(car)) {
-                cars.remove(c);
-            }
-        }
+        cars.remove(car);
     }
 }

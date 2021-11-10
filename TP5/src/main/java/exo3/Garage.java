@@ -56,11 +56,7 @@ public class Garage  {
     }
 
     public void remove(Vehicule vehicule) {
-        for(Vehicule v : vehicules) {
-            if(v.equals(vehicule)) {
-                vehicules.remove(v);
-            }
-        }
+                vehicules.remove(vehicule);
     }
 
     public void protectionism(String brand) {
@@ -76,7 +72,7 @@ public class Garage  {
     public boolean equals(Object obj) {
         if(obj instanceof Garage) {
             Garage garage2 =(Garage) obj;
-            if(vehicules.equals(garage2)) {
+            if(vehicules.equals(garage2.getVehicles())) {
                 return true;
             }
         }

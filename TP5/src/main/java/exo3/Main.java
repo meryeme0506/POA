@@ -12,5 +12,6 @@ public class Main {
         garage.add(c);
         garage.protectionism("BMW");
         System.out.println(garage.getVehicles());
+        System.out.println(a.hashCode());
     }
 }

@@ -1,7 +1,8 @@
-package exo1;
+package exo3;
 
-import main.java.exo1.Car;
-import main.java.exo1.Garage;
+import main.java.exo3.Car;
+import main.java.exo3.Garage;
+import main.java.exo3.Vehicule;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -25,7 +26,6 @@ public class GarageTest {
         garage.add(c3);
         garage.add(c4);
     }
-
     @Test
     public void addTestWhenOK(){
         assertTrue(garage.contains(c3));
@@ -48,19 +48,36 @@ public class GarageTest {
 
     @Test
     public void firstCarByBrandWhenCarExist(){
-        Car c = garage.firstCarByBrand("Gbrabus");
+        Vehicule c = garage.firstCarByBrand("Gbrabus");
         assertEquals(c2,c);
     }
 
     @Test
     public void firstCarByBrandWhenCarDoesntExist(){
-        Car c = garage.firstCarByBrand("4x4");
+        Vehicule c = garage.firstCarByBrand("4x4");
         assertNull(c);
     }
 
     @Test
     public void removeTest(){
         garage.remove(c4);
-        assertFalse(garage.getCars().contains(c4));
+        assertFalse(garage.getVehicles().contains(c4));
+    }
+    @Test
+    public void protectionismTest(){
+        garage.protectionism("Gbrabus");
+        assertFalse(garage.contains(c2));
+        assertFalse(garage.contains(c4));
+    }
+
+    @Test
+    public void equalsTest(){
+        Garage garage2 = garage;
+        garage2.add(c1);
+        garage2.add(c2);
+        garage2.add(c3);
+        garage2.add(c4);
+        assertEquals(true, garage.equals(garage2));
+
     }
 }
