@@ -80,5 +80,10 @@ public class Garage  {
     }
 
 
-
+/**
+ * Collections.sort() :
+ * utiliser les indexes directement
+ * Linkdelist not optimal : we have to start from the beginning to the index
+ * Complexity increase
+ */
 }
