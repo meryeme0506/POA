@@ -1,0 +1,11 @@
+Exercice 1 :
+1. public in myMax(int... args){...}
+2. Il faut lever une exception
+Exercice 2 :
+1. Le type du paramètre n'est pas compatible, il faut utiliser un Object et non un String
+2. On précise pas le type de l'objet passé en paramètre : List<?>
+Exercice 4 :
+2. On parcoure chaque liste une fois sur deux, donc on a une complexité de (n^2) / 2
+Exercice 5 :
+2. C'est possible, mais il faut passer par la récupération du type de l'objet dans la liste d'abord, puis l'utiliser
+4. n * (2n) car je parcoure la liste une fois en faisant deux opération d'accès
