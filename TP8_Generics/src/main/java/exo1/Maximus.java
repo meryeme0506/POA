@@ -67,17 +67,30 @@ public class Maximus {
         list.set(j, a);
     }
 
-    public static <T> void echange(List<T> list) {
-        int size = list.size();
+    public static <T> void echange(List<T> l) {
+        /**int size = list.size();
         Random random = new Random();
         random.nextInt();
         T tmp = null;
-        for (int i = 0; i < size; i++) {
+        for (int i = size-1; i < size; i++) {
             int change = i + random.nextInt(size - i);
             tmp = list.get(i);
             list.set(i,list.get(change));
             list.set(change,tmp);
+        }*/
+        T[] array=(T[]) l.toArray();
+        T[] e = array;
+        Random random = new Random();
+        for (int i =(l.size() -1); i > 0; i--) {
+            int j = random.nextInt();
+            swap(e,i,j);
+            l=Arrays.asList(e);
         }
+    }
+    private static <T> void swap(T[] l,int i,int j){
+        T temp = l[i];
+        l[i]=l[j];
+        l[j]=temp;
     }
 
     public static void main(String[] args) throws Exception {
