@@ -8,4 +8,4 @@ Exercice 4 :
 2. On parcoure chaque liste une fois sur deux, donc on a une complexité de (n^2) / 2
 Exercice 5 :
 2. C'est possible, mais il faut passer par la récupération du type de l'objet dans la liste d'abord, puis l'utiliser
-4. n * (2n) car je parcoure la liste une fois en faisant deux opération d'accès
+4. n * (3n) car je parcoure la liste une fois en faisant trois opération d'accès
