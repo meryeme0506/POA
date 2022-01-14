@@ -28,7 +28,7 @@ public class Generator {
 	 */
 	public static void generateLevel(String fileName, Grid inputGrid) {
 		try {
-      FileWriter gridtxt = new FileWriter("my-grid.txt");
+      FileWriter gridtxt = new FileWriter(filename);
 			int width = inputGrid.getWidth();
 			int height = inputGrid.getHeight();
 			for (int i = 0 ; i < width ; i++) {
@@ -45,6 +45,7 @@ public class Generator {
       e.printStackTrace();
     }
 	}
+
 	public static int[] copyGrid(Grid filledGrid, Grid inputGrid, int i, int j) {
 		Piece p;
 		int hmax = inputGrid.getHeight();
