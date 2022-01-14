@@ -2,6 +2,7 @@ package fr.dauphine.JavaAvance.Solve;
 
 
 import java.util.Random;
+import java.io.*;
 
 import fr.dauphine.JavaAvance.Components.Piece;
 import fr.dauphine.JavaAvance.Components.PieceType;
@@ -26,8 +27,22 @@ public class Generator {
 	 * @throws UnsupportedEncodingException
 	 */
 	public static void generateLevel(String fileName, Grid inputGrid) {
-      
-		// To be implemented
+		try {
+      FileWriter gridtxt = new FileWriter("my-grid.txt");
+			int width = inputGrid.getWidth();
+			int height = inputGrid.getHeight();
+			for (int i = 0 ; i < width ; i++) {
+				for (int j = 0 ; j < height ; j++) {
+					Piece p = inputGrid.getPiece(i,j);
+				}
+			}
+      gridtxt.write("");
+      gridtxt.close();
+    }
+    catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
 	}
 	public static int[] copyGrid(Grid filledGrid, Grid inputGrid, int i, int j) {
 		Piece p;
