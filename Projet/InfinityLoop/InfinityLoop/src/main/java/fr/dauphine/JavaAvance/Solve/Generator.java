@@ -4,8 +4,10 @@ package fr.dauphine.JavaAvance.Solve;
 import java.util.Random;
 import java.io.*;
 
+import fr.dauphine.JavaAvance.Components.Orientation;
 import fr.dauphine.JavaAvance.Components.Piece;
 import fr.dauphine.JavaAvance.Components.PieceType;
+import fr.dauphine.JavaAvance.GUI.DisplayUnicode;
 import fr.dauphine.JavaAvance.GUI.Grid;
 
 /**
@@ -28,7 +30,7 @@ public class Generator {
 	 */
 	public static void generateLevel(String fileName, Grid inputGrid) {
 		try {
-      FileWriter gridtxt = new FileWriter(filename);
+      FileWriter gridtxt = new FileWriter(fileName);
 			int width = inputGrid.getWidth();
 			int height = inputGrid.getHeight();
 			for (int i = 0 ; i < height ; i++) {
