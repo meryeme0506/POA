@@ -28,15 +28,17 @@ public class Generator {
 	 */
 	public static void generateLevel(String fileName, Grid inputGrid) {
 		try {
-      FileWriter gridtxt = new FileWriter("my-grid.txt");
+      FileWriter gridtxt = new FileWriter(filename);
 			int width = inputGrid.getWidth();
 			int height = inputGrid.getHeight();
-			for (int i = 0 ; i < width ; i++) {
-				for (int j = 0 ; j < height ; j++) {
+			for (int i = 0 ; i < height ; i++) {
+				for (int j = 0 ; j < width ; j++) {
 					Piece p = inputGrid.getPiece(i,j);
+					Orientation o = p.getOrientation();
+					gridtxt.write(DisplayUnicode.getUnicodeOfPiece(p,o));
 				}
+				gridtxt.write("\n");
 			}
-      gridtxt.write("");
       gridtxt.close();
     }
     catch (IOException e) {
@@ -44,6 +46,7 @@ public class Generator {
       e.printStackTrace();
     }
 	}
+
 	public static int[] copyGrid(Grid filledGrid, Grid inputGrid, int i, int j) {
 		Piece p;
 		int hmax = inputGrid.getHeight();
