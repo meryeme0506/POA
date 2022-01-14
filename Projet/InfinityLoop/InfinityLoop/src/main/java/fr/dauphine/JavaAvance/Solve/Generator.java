@@ -34,9 +34,10 @@ public class Generator {
 			for (int i = 0 ; i < width ; i++) {
 				for (int j = 0 ; j < height ; j++) {
 					Piece p = inputGrid.getPiece(i,j);
+					Orientation o = p.getOrientation();
+					gridtxt.write(DisplayUnicode.getUnicodeOfPiece(p,o));
 				}
 			}
-      gridtxt.write("");
       gridtxt.close();
     }
     catch (IOException e) {
