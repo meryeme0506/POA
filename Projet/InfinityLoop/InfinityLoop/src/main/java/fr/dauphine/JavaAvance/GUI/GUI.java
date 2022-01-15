@@ -16,7 +16,9 @@ import fr.dauphine.JavaAvance.Solve.Checker;
 
 /**
  * This class handles the GUI
- * 
+ *
+ * @Author Meryeme Haman
+ * @Author Emilie Pathammavong
  *
  */
 public class GUI {
@@ -39,7 +41,7 @@ public class GUI {
 			public void run() {
 
 				try {
-					Grid grid = Checker.buildGrid(inputFile);
+					Grid grid = Checker.constructLevel(inputFile);
 					SwingUtilities.invokeLater(new Runnable() {
 						public void run() {
 							GUI window;
@@ -97,48 +99,48 @@ public class GUI {
 	 * @return an image icon
 	 */
 	private ImageIcon getImageIcon(Piece p) {
-		String imgPath = "";
+		String path = "";
 		switch (p.getType()) {
 			case VOID -> {
-				imgPath = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/background.png";
+				path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/background.png";
 			}
 			case ONECONN -> {
 				switch (p.getOrientation()) {
-					case NORTH -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/1.png";
-					case EAST -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/2.png";
-					case SOUTH -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/3.png";
-					case WEST -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/4.png";
+					case NORTH -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/1.png";
+					case EAST -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/2.png";
+					case SOUTH -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/3.png";
+					case WEST -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/4.png";
 				}
 			}
 			case BAR -> {
 				switch (p.getOrientation()) {
-					case NORTH -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/5.png";
-					case EAST -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/6.png";
+					case NORTH -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/5.png";
+					case EAST -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/6.png";
 				}
 			}
 			case TTYPE -> {
 				switch (p.getOrientation()) {
-					case NORTH -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/7.png";
-					case EAST -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/8.png";
-					case SOUTH -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/9.png";
-					case WEST -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/10.png";
+					case NORTH -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/7.png";
+					case EAST -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/8.png";
+					case SOUTH -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/9.png";
+					case WEST -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/10.png";
 				}
 			}
 			case FOURCONN -> {
 				if (p.getOrientation() == Orientation.NORTH) {
-					imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/11.png";
+					path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/11.png";
 				}
 			}
 			case LTYPE -> {
 				switch (p.getOrientation()) {
-					case NORTH -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/12.png";
-					case EAST -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/13.png";
-					case SOUTH -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/14.png";
-					case WEST -> imgPath = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/15.png";
+					case NORTH -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/12.png";
+					case EAST -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/13.png";
+					case SOUTH -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/14.png";
+					case WEST -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/15.png";
 				}
 			}
 		}
-		return new ImageIcon(imgPath);
+		return new ImageIcon(path);
 		
 		
 	}
