@@ -15,6 +15,8 @@ public class Solver {
 	// La solution de la grille générée
 	private Grid solutionGrid;
 
+
+
 	/**
 	 * Une fonction structure la solution de la grille selon 3 situations différentes
 	 * @param testPiece la pièce à tester
@@ -55,7 +57,7 @@ public class Solver {
 	}
 	public static void main(String[] args) {
 
-		// To be implemented
+
 
 	}
 }
