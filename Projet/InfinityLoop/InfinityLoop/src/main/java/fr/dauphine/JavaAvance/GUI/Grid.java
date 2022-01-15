@@ -436,7 +436,6 @@ public class Grid {
 					if (this.getPiece(line, column).hasRightConnector())
 						return false;
 				}
-
 				if (!this.getPiece(line, column).hasRightConnector() && rn != null && rn.hasLeftConnector())
 					return false;
 				if (this.getPiece(line, column).hasRightConnector() && rn != null && !rn.hasLeftConnector())
@@ -550,6 +549,28 @@ public class Grid {
 			s += "\n";
 		}
 		return s;
+	}
+
+	/**
+	 *
+	 * @param piece the piece we want get the number of neighbours
+	 * @return sum the number of the neighbours
+	 */
+	public int getNeighbours(Piece piece) {
+		int sum = 0;
+		int x = piece.getPosX();
+		int y = piece.getPosY();
+
+		if (x > 0 && getPiece(y, x - 1).getType() != PieceType.VOID)
+			sum++;
+		if (y < this.getHeight() - 1 && getPiece(y + 1, x).getType() != PieceType.VOID)
+			sum++;
+		if (x < this.getWidth() - 1 && getPiece(y, x + 1).getType() != PieceType.VOID)
+			sum++;
+		if (y > 0 && getPiece(y - 1, x).getType() != PieceType.VOID)
+			sum++;
+
+		return sum;
 	}
 
 }
