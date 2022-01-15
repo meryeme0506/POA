@@ -34,6 +34,8 @@ public class Generator {
 			int width = inputGrid.getWidth();
 			int height = inputGrid.getHeight();
 			Grid g = constructLevel(inputGrid);
+			gridtxt.write(width);
+			gridtxt.write(height);
 			gridtxt.write(g.toString());
       gridtxt.close();
     }
@@ -43,29 +45,15 @@ public class Generator {
     }
 	}
 
-	// public static void generateLevel(String fileName, Grid inputGrid) {
-	// 	try {
-  //     FileWriter gridtxt = new FileWriter(filename);
-	// 		int width = inputGrid.getWidth();
-	// 		int height = inputGrid.getHeight();
-	// 		Grid g = constructLevel(inputGrid);
-	// 		for (int i = 0 ; i < height ; i++) {
-	// 			for (int j = 0 ; j < width ; j++) {
-	// 				PieceType p = g.getPiece(i,j).getType();
-	// 				Orientation o = p.getOrientation();
-	// 				gridtxt.write(DisplayUnicode.getUnicodeOfPiece(p,o));
-	// 			}
-	// 			gridtxt.write("\n");
-	// 		}
-  //     gridtxt.close();
-  //   }
-  //   catch (IOException e) {
-  //     System.out.println("An error occurred.");
-  //     // e.printStackTrace();
-  //   }
-	// }
-
-	public static Grid constructLevel(Grid g){
+	/**
+	 * Constructs a level by generating an already solved grid, choosing each piece randomly
+	 * among the possibilities depending on its position in the grid and its neighbors,
+	 * and then shuffling each piece's position.
+	 * private because meant to be solely used by generateLevel
+	 * @param inputFile, the file we want to check
+	 * @return the grid, translation of the input file
+	 */
+	private static Grid constructLevel(Grid g){
 		Piece p;
 		for (int i = 0 ; i < g.getWidth() ; i++) {
 			for (int j = 0 ; j < g.getHeight() ; j++) {
@@ -75,7 +63,7 @@ public class Generator {
 				if (i==0 && j==0) {
 					pt = new Random().nextInt(3);
 					if (pt==1) {
-						ori = new Random().nextInt(1,3));
+						ori = new Random().nextInt(1,3);
 					}
 					if (pt==2) {
 						pt = 5;
