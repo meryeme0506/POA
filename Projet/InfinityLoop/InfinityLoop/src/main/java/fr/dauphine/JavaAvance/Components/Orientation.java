@@ -1,44 +1,88 @@
 package fr.dauphine.JavaAvance.Components;
 
-import java.util.HashMap;
-
 /**
  * 
  * Orientation of the piece enum
  * 
  */
 public enum Orientation {
-	/* Implement all the possible orientations and 
-	 *  required methods to rotate
-	 */
-	NORTH,EAST,SOUTH,WEST;
+	NORTH(0) {
+		public Orientation turn90() {
+			return EAST;
+		}
 
-	public static Orientation getOrifromValue(int orientationValue) {
-	if(orientationValue==0)
-		return Orientation.NORTH;
-	if(orientationValue==1)
-		return Orientation.EAST;
-	if(orientationValue==2)
-		return Orientation.SOUTH;
-	if(orientationValue==3)
-		return Orientation.WEST;
-	return null;
+		public int[] getOpposedPieceCoordinates(Piece p) {
+			return new int[]{p.getPosY() - 1, p.getPosX()};
+		}
+
+		public Orientation getOpposedOrientation() {
+			return SOUTH;
+		}
+	}, EAST(1) {
+		public Orientation turn90() {
+			return SOUTH;
+		}
+
+		public int[] getOpposedPieceCoordinates(Piece p) {
+			return new int[]{p.getPosY(), p.getPosX() + 1};
+		}
+
+		public Orientation getOpposedOrientation() {
+			return WEST;
+		}
+	}, SOUTH(2) {
+		public Orientation turn90() {
+			return WEST;
+		}
+
+		public int[] getOpposedPieceCoordinates(Piece p) {
+			return new int[]{p.getPosY() + 1, p.getPosX()};
+		}
+
+		public Orientation getOpposedOrientation() {
+			return NORTH;
+		}
+	}, WEST(3) {
+		public Orientation turn90() {
+			return NORTH;
+		}
+
+		public int[] getOpposedPieceCoordinates(Piece p) {
+			return new int[]{p.getPosY(), p.getPosX() - 1};
+		}
+
+		public Orientation getOpposedOrientation() {
+			return EAST;
+		}
+	};
+
+	public final int value;
+
+	Orientation(int value) {
+		this.value = value;
 	}
 
-	public Orientation turn90() {
-		switch(this) {
-			case NORTH:
-				return Orientation.EAST;
-
-			case EAST:
-				return Orientation.SOUTH;
-
-			case SOUTH:
-				return Orientation.WEST;
-
-			case WEST:
-				return Orientation.NORTH;
+	public static Orientation getOrifromValue(int value) {
+		switch (value) {
+			case 0:
+				return NORTH;
+			case 1:
+				return EAST;
+			case 2:
+				return SOUTH;
+			case 3:
+				return WEST;
 		}
 		return null;
 	}
+
+	public int getValue() {
+		return this.value;
+	}
+
+	abstract public Orientation turn90();
+
+	abstract public int[] getOpposedPieceCoordinates(Piece p);
+
+	abstract public Orientation getOpposedOrientation();
 }
