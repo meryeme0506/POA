@@ -31,20 +31,246 @@ public class Generator {
       FileWriter gridtxt = new FileWriter(filename);
 			int width = inputGrid.getWidth();
 			int height = inputGrid.getHeight();
-			for (int i = 0 ; i < height ; i++) {
-				for (int j = 0 ; j < width ; j++) {
-					Piece p = inputGrid.getPiece(i,j);
-					Orientation o = p.getOrientation();
-					gridtxt.write(DisplayUnicode.getUnicodeOfPiece(p,o));
-				}
-				gridtxt.write("\n");
-			}
+			Grid g = constructLevel(inputGrid);
+			gridtxt.write(g.toString());
       gridtxt.close();
     }
     catch (IOException e) {
       System.out.println("An error occurred.");
-      e.printStackTrace();
+      // e.printStackTrace();
     }
+	}
+
+	// public static void generateLevel(String fileName, Grid inputGrid) {
+	// 	try {
+  //     FileWriter gridtxt = new FileWriter(filename);
+	// 		int width = inputGrid.getWidth();
+	// 		int height = inputGrid.getHeight();
+	// 		Grid g = constructLevel(inputGrid);
+	// 		for (int i = 0 ; i < height ; i++) {
+	// 			for (int j = 0 ; j < width ; j++) {
+	// 				PieceType p = g.getPiece(i,j).getType();
+	// 				Orientation o = p.getOrientation();
+	// 				gridtxt.write(DisplayUnicode.getUnicodeOfPiece(p,o));
+	// 			}
+	// 			gridtxt.write("\n");
+	// 		}
+  //     gridtxt.close();
+  //   }
+  //   catch (IOException e) {
+  //     System.out.println("An error occurred.");
+  //     // e.printStackTrace();
+  //   }
+	// }
+
+	public static Grid constructLevel(Grid g){
+		piece p;
+		for (int i = 0 ; i < g.width ; i++) {
+			for (int j = 0 ; j < g.height ; j++) {
+				int pt,ori;
+				// la premier pièce en haut à gauche est la seule qu'on peut choisir
+				//  sans prendre en compte voisins car première
+				if (i==0 && j==0) {
+					pt = new.Random().nextInt(3);
+					if (pt==1) {
+						ori = new Random(.nextInt(1,3));
+					}
+					if (pt==2) {
+						pt = 5;
+						ori = 1;
+					}
+				}
+				// si c'est la ligne d'en haut, on ne s'occupe que du voisin à gauche
+				else if (j==0) {
+					if (g.getPiece(i-1,j).hasRightConnector()) {
+						pt = new.Random().nextInt(4);
+						if (pt==0) {
+							pt = 5;
+							ori = new Random().nextInt(2,4);
+						}
+						if (pt==1) {
+							ori = 3;
+						}
+						if (pt==2) {
+							ori = 1;
+						}
+						if (pt==3) {
+							ori = 2;
+						}
+					}
+					else {
+						pt = new.Random().nextInt(3);
+						if (pt==1) {
+							ori = new.Random().nextInt(1,3);
+						}
+						if (pt==2) {
+							pt = 5;
+							ori = 1;
+						}
+					}
+				}
+				// si c'est la colonne de gauche, on ne s'occupe que du voisin du dessus
+				else if (i==0) {
+					if (g.getPiece(i-1,j).hasBottomConnector() ) {
+						pt = new.Random().nextInt(1,5);
+						if (pt==1) {
+							ori = 0;
+						}
+						if (pt==2) {
+							ori = 0;
+						}
+						if (pt==3) {
+							ori = 1;
+						}
+						if (pt==4) {
+							pt = 5;
+							ori = 0;
+						}
+					}
+					else {
+						pt = new.Random().nextInt(4);
+						if (pt==1) {
+							ori = new.Random().nextInt(1,3);
+						}
+						if (pt==2) {
+							ori = 1;
+						}
+						if (pt==3) {
+							pt = 5;
+							ori = 1;
+						}
+					}
+				}
+				// si c'est la colonne de droite on regarde le voisin au dessus et à gauche
+				else if (i==g.width-1) {
+					if (g.getPiece(i,j-1).hasBottomConnector() && g.getPiece(i-1,j).hasRightConnector()) {
+						pt = new Random().nextInt(2);
+						if (pt==0) {
+							pt = 3;
+							ori = 3;
+						}
+						else {
+							pt = 5;
+							ori = 3;
+						}
+					}
+					else if (g.getPiece(i,j-1).hasBottomConnector()) {
+						pt = new Random().nextInt(1,3);
+						ori = 0;
+					}
+					else if (g.getPiece(i-1,j).hasRightConnector()) {
+						pt = new Random().nextInt(1,3);
+						if (pt==1) {
+							ori = 3;
+						}
+						else {
+							pt = 5;
+							ori = 2;
+						}
+					}
+					else {
+						pt = new Random().nextInt(2);
+						if (pt==0) {
+							ori = 0;
+						}
+						if (pt==1) {
+							ori = 2;
+						}
+					}
+				}
+				//  si c'est la dernière ligne, on s'occupe du voisin de gauche et du dessus
+				else if (j==g.height-1) {
+					if (g.getPiece(i-1,j).hasRightConnector() && g.getPiece(i,j-1).hasBottomConnector()) {
+						pt = 5;
+						ori = 3;
+					}
+					else if (g.getPiece(i-1,j).hasRightConnector()) {
+						pt = new Random().nextInt(1,3);
+						if (pt==1) {
+							ori = 3;
+						}
+						if (pt==2) {
+							ori = 1;
+						}
+					}
+					else if (g.getPiece(i,j-1).hasBottomConnector()) {
+						pt = 1;
+						ori = 0;
+					}
+					else {
+						pt = new Random().nextInt(2);
+						if (pt==0) {
+							ori = 0;
+						}
+						if (pt==1) {
+							ori = 1;
+						}
+					}
+				}
+				// sinon, on regarde en haut et à gauche, mais plus de pièces sont autorisé
+				else {
+					if (g.getPiece(i,j-1).hasBottomConnector() && g.getPiece(i-1,j).hasRightConnector()) {
+						pt = new Random().nextInt(4,6);
+						if (pt==4) {
+							ori = 0;
+						}
+						else {
+							ori = 3;
+						}
+					}
+					else if (g.getPiece(i,j-1).hasBottomConnector()) {
+						pt = new Random().nextInt(1,5);
+						if (pt==1) {
+							ori = 0;
+						}
+						if (pt==2) {
+							ori = 0;
+						}
+						if (pt==3) {
+							ori = 1;
+						}
+						if (pt==4) {
+							pt = 5;
+							ori = 0;
+						}
+					}
+					else if (g.getPiece(i-1,j).hasRightConnector()) {
+						pt = new Random().nextInt(1,5);
+						if (pt==1) {
+							ori = 3;
+						}
+						if (pt==2) {
+							ori = 1;
+						}
+						if (pt==3) {
+							ori = 2;
+						}
+						if (pt==4) {
+							pt = 5;
+							ori = 2;
+						}
+					}
+					else {
+						pt = new Random().nextInt(2);
+						if (pt==0) {
+							ori = 0;
+						}
+						if (pt==1) {
+							pt = 1;
+						}
+					}
+				}
+				p = new Piece(i,j,pt,ori);
+				g.setPiece(i,j,p);
+			}
+		}
+		// on mélange les positions
+		for (int k = 0 ; k < g.width ; k++) {
+			for (int l = 0 ; l < g.height ; l++) {
+				int ori = new.Random().nextInt(4);
+				g.getPiece(k,l).setOrientation(ori);
+			}
+		}
 	}
 
 	public static int[] copyGrid(Grid filledGrid, Grid inputGrid, int i, int j) {
