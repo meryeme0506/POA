@@ -552,25 +552,18 @@ public class Grid {
 	}
 
 	/**
-	 *
-	 * @param piece the piece we want get the number of neighbours
-	 * @return sum the number of the neighbours
+	 * returns True if all the pieces are connected False otherwise
+	 * @return True if all the pieces are connected False otherwise
 	 */
-	public int getNeighbours(Piece piece) {
-		int sum = 0;
-		int x = piece.getPosX();
-		int y = piece.getPosY();
-
-		if (x > 0 && getPiece(y, x - 1).getType() != PieceType.VOID)
-			sum++;
-		if (y < this.getHeight() - 1 && getPiece(y + 1, x).getType() != PieceType.VOID)
-			sum++;
-		if (x < this.getWidth() - 1 && getPiece(y, x + 1).getType() != PieceType.VOID)
-			sum++;
-		if (y > 0 && getPiece(y - 1, x).getType() != PieceType.VOID)
-			sum++;
-
-		return sum;
+	public boolean connected() {
+		for(int i = 0; i < height; i++){
+			for(int j = 0; j < width; j++){
+				if(!this.isTotallyConnected(this.pieces[i][j])){
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 }

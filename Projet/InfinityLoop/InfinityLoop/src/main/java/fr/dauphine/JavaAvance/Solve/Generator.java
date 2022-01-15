@@ -66,16 +66,16 @@ public class Generator {
 	// }
 
 	public static Grid constructLevel(Grid g){
-		piece p;
-		for (int i = 0 ; i < g.width ; i++) {
-			for (int j = 0 ; j < g.height ; j++) {
+		Piece p;
+		for (int i = 0 ; i < g.getWidth() ; i++) {
+			for (int j = 0 ; j < g.getHeight() ; j++) {
 				int pt,ori;
-				// la premier pièce en haut à gauche est la seule qu'on peut choisir
+				// la première pièce en haut à gauche est la seule qu'on peut choisir
 				//  sans prendre en compte voisins car première
 				if (i==0 && j==0) {
-					pt = new.Random().nextInt(3);
+					pt = new Random().nextInt(3);
 					if (pt==1) {
-						ori = new Random(.nextInt(1,3));
+						ori = new Random().nextInt(1,3));
 					}
 					if (pt==2) {
 						pt = 5;
@@ -85,25 +85,19 @@ public class Generator {
 				// si c'est la ligne d'en haut, on ne s'occupe que du voisin à gauche
 				else if (j==0) {
 					if (g.getPiece(i-1,j).hasRightConnector()) {
-						pt = new.Random().nextInt(4);
+						pt = new Random().nextInt(4);
 						if (pt==0) {
 							pt = 5;
 							ori = new Random().nextInt(2,4);
 						}
-						if (pt==1) {
-							ori = 3;
-						}
-						if (pt==2) {
-							ori = 1;
-						}
-						if (pt==3) {
-							ori = 2;
-						}
+						if (pt==1) { ori = 3; }
+						if (pt==2) { ori = 1; }
+						if (pt==3) { ori = 2; }
 					}
 					else {
-						pt = new.Random().nextInt(3);
+						pt = new Random().nextInt(3);
 						if (pt==1) {
-							ori = new.Random().nextInt(1,3);
+							ori = new Random().nextInt(1,3);
 						}
 						if (pt==2) {
 							pt = 5;
@@ -114,25 +108,19 @@ public class Generator {
 				// si c'est la colonne de gauche, on ne s'occupe que du voisin du dessus
 				else if (i==0) {
 					if (g.getPiece(i-1,j).hasBottomConnector() ) {
-						pt = new.Random().nextInt(1,5);
-						if (pt==1) {
-							ori = 0;
-						}
-						if (pt==2) {
-							ori = 0;
-						}
-						if (pt==3) {
-							ori = 1;
-						}
+						pt = new Random().nextInt(1,5);
+						if (pt==1) { ori = 0; }
+						if (pt==2) { ori = 0; }
+						if (pt==3) { ori = 1; }
 						if (pt==4) {
 							pt = 5;
 							ori = 0;
 						}
 					}
 					else {
-						pt = new.Random().nextInt(4);
+						pt = new Random().nextInt(4);
 						if (pt==1) {
-							ori = new.Random().nextInt(1,3);
+							ori = new Random().nextInt(1,3);
 						}
 						if (pt==2) {
 							ori = 1;
@@ -144,7 +132,7 @@ public class Generator {
 					}
 				}
 				// si c'est la colonne de droite on regarde le voisin au dessus et à gauche
-				else if (i==g.width-1) {
+				else if (i==g.getWidth()-1) {
 					if (g.getPiece(i,j-1).hasBottomConnector() && g.getPiece(i-1,j).hasRightConnector()) {
 						pt = new Random().nextInt(2);
 						if (pt==0) {
@@ -162,9 +150,7 @@ public class Generator {
 					}
 					else if (g.getPiece(i-1,j).hasRightConnector()) {
 						pt = new Random().nextInt(1,3);
-						if (pt==1) {
-							ori = 3;
-						}
+						if (pt==1) { ori = 3; }
 						else {
 							pt = 5;
 							ori = 2;
@@ -172,16 +158,12 @@ public class Generator {
 					}
 					else {
 						pt = new Random().nextInt(2);
-						if (pt==0) {
-							ori = 0;
-						}
-						if (pt==1) {
-							ori = 2;
-						}
+						if (pt==0) { ori = 0; }
+						if (pt==1) { ori = 2; }
 					}
 				}
 				//  si c'est la dernière ligne, on s'occupe du voisin de gauche et du dessus
-				else if (j==g.height-1) {
+				else if (j==g.getHeight()-1) {
 					if (g.getPiece(i-1,j).hasRightConnector() && g.getPiece(i,j-1).hasBottomConnector()) {
 						pt = 5;
 						ori = 3;
@@ -267,9 +249,9 @@ public class Generator {
 			}
 		}
 		// on mélange les positions
-		for (int k = 0 ; k < g.width ; k++) {
-			for (int l = 0 ; l < g.height ; l++) {
-				int ori = new.Random().nextInt(4);
+		for (int k = 0 ; k < g.getWidth() ; k++) {
+			for (int l = 0 ; l < g.getHeight() ; l++) {
+				int ori = new Random().nextInt(4);
 				g.getPiece(k,l).setOrientation(ori);
 			}
 		}
