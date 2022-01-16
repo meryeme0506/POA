@@ -36,7 +36,9 @@ public class Generator {
 			int height = inputGrid.getHeight();
 			Grid g = constructLevel(inputGrid);
 			gridtxt.write(width);
+			gridtxt.write("\n");
 			gridtxt.write(height);
+			gridtxt.write("\n");
 			gridtxt.write(g.toString());
       gridtxt.close();
     }
