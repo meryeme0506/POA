@@ -85,13 +85,13 @@ public class Main {
 
             // load grid from inputFile and check if it is solved...
             //...
-						solved = Checker.isSolution(inputFile);
+            solved = Checker.isSolution(inputFile);
             System.out.println("SOLVED: " + solved);
         }
         else {
             throw new ParseException("You must specify at least one of the following options: -generate -check -solve ");
         }
-        } catch (ParseException e) {
+        } catch (ParseException | IOException e) {
             System.err.println("Error parsing commandline : " + e.getMessage());
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp( "phineloopgen", options );

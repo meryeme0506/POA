@@ -566,4 +566,24 @@ public class Grid {
 		return true;
 	}
 
+	/**
+	 *
+	 * @param p a piece
+	 * @return the number of neighbors
+	 */
+	public int nbNeighbours(Piece p) {
+		int x = p.getPosX();
+		int y = p.getPosY();
+		int nb = 0;
+		if (y < this.getHeight() - 1 && getPiece(y + 1, x).getType() != PieceType.VOID)
+			nb++;
+		if (x < this.getWidth() - 1 && getPiece(y, x + 1).getType() != PieceType.VOID)
+			nb++;
+		if (y > 0 && getPiece(y - 1, x).getType() != PieceType.VOID)
+			nb++;
+		if (x > 0 && getPiece(y, x - 1).getType() != PieceType.VOID)
+			nb++;
+		return nb;
+	}
+
 }

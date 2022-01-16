@@ -70,7 +70,7 @@ public class Solver {
 		Piece[][] p = inputGrid.getAllPieces();
 		ArrayList<Orientation> orientations = new ArrayList<>(); // Les orientations possibles
 		for (int i = 0; i < h; i++) { // Parcours de toutes les lignes de la grille
-			for (int j = 0; j < h; j++) { //Parcours de toutes les colonnes de la grille
+			for (int j = 0; j < w; j++) { //Parcours de toutes les colonnes de la grille
 				// Traitement des positions où on peut avoir que deux pièces ONECONN et LTYPE
 				if (i == 0 && j == 0) { // La première pièce en haut à gauche
 					if (p[i][j].getType().equals(PieceType.ONECONN)) {

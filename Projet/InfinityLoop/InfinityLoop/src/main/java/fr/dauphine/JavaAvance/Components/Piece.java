@@ -45,7 +45,21 @@ public class Piece {
 		this.isFixed = false;
 		this.possibleOrientations = type.getListOfPossibleOri();
 	}
-
+	public static int getTypeFromPiece(Piece piece) {
+		switch (piece.getType()) {
+			case ONECONN:
+				return 1;
+			case BAR:
+				return 2;
+			case TTYPE:
+				return 3;
+			case FOURCONN:
+				return 4;
+			case LTYPE:
+				return 5;
+		}
+		return 0;
+	}
 	public void setPossibleOrientations(ArrayList<Orientation> possibleOrientations) {
 		this.possibleOrientations = possibleOrientations;
 	}

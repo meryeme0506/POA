@@ -20,7 +20,7 @@ public class Generator {
 	private static Grid filledGrid;
 
 	/**
-	 * @param output
+	 * @param fileName
 	 *            file name
 	 * @throws IOException
 	 *             - if an I/O error occurs.
@@ -28,6 +28,7 @@ public class Generator {
 	 * @throws FileNotFoundException
 	 * @throws UnsupportedEncodingException
 	 */
+
 	public static void generateLevel(String fileName, Grid inputGrid) {
 		try {
       FileWriter gridtxt = new FileWriter(fileName);
@@ -50,20 +51,21 @@ public class Generator {
 	 * among the possibilities depending on its position in the grid and its neighbors,
 	 * and then shuffling each piece's position.
 	 * private because meant to be solely used by generateLevel
-	 * @param inputFile, the file we want to check
+	 * @param g the file we want to check
 	 * @return the grid, translation of the input file
 	 */
 	private static Grid constructLevel(Grid g){
 		Piece p;
 		for (int i = 0 ; i < g.getWidth() ; i++) {
 			for (int j = 0 ; j < g.getHeight() ; j++) {
-				int pt,ori;
+				int pt=0;
+				int ori=0;
 				// la première pièce en haut à gauche est la seule qu'on peut choisir
 				//  sans prendre en compte voisins car première
 				if (i==0 && j==0) {
 					pt = new Random().nextInt(3);
 					if (pt==1) {
-						ori = new Random().nextInt(1,3);
+						ori  = new Random().nextInt(2)+1;
 					}
 					if (pt==2) {
 						pt = 5;
@@ -76,7 +78,7 @@ public class Generator {
 						pt = new Random().nextInt(4);
 						if (pt==0) {
 							pt = 5;
-							ori = new Random().nextInt(2,4);
+							ori = new Random().nextInt(2)-1;
 						}
 						if (pt==1) { ori = 3; }
 						if (pt==2) { ori = 1; }
@@ -85,7 +87,7 @@ public class Generator {
 					else {
 						pt = new Random().nextInt(3);
 						if (pt==1) {
-							ori = new Random().nextInt(1,3);
+							ori = new Random().nextInt(2)+1;
 						}
 						if (pt==2) {
 							pt = 5;
@@ -94,9 +96,9 @@ public class Generator {
 					}
 				}
 				// si c'est la colonne de gauche, on ne s'occupe que du voisin du dessus
-				else if (i==0) {
+				else if (j==0) {
 					if (g.getPiece(i-1,j).hasBottomConnector() ) {
-						pt = new Random().nextInt(1,5);
+						pt = new Random().nextInt(4)+1;
 						if (pt==1) { ori = 0; }
 						if (pt==2) { ori = 0; }
 						if (pt==3) { ori = 1; }
@@ -108,7 +110,7 @@ public class Generator {
 					else {
 						pt = new Random().nextInt(4);
 						if (pt==1) {
-							ori = new Random().nextInt(1,3);
+							ori = new Random().nextInt(2)+1;
 						}
 						if (pt==2) {
 							ori = 1;
@@ -133,11 +135,11 @@ public class Generator {
 						}
 					}
 					else if (g.getPiece(i,j-1).hasBottomConnector()) {
-						pt = new Random().nextInt(1,3);
+						pt = new Random().nextInt(2)+1;
 						ori = 0;
 					}
 					else if (g.getPiece(i-1,j).hasRightConnector()) {
-						pt = new Random().nextInt(1,3);
+						pt = new Random().nextInt(2)+1;
 						if (pt==1) { ori = 3; }
 						else {
 							pt = 5;
@@ -157,7 +159,7 @@ public class Generator {
 						ori = 3;
 					}
 					else if (g.getPiece(i-1,j).hasRightConnector()) {
-						pt = new Random().nextInt(1,3);
+						pt = new Random().nextInt(2)+1;
 						if (pt==1) {
 							ori = 3;
 						}
@@ -180,9 +182,9 @@ public class Generator {
 					}
 				}
 				// sinon, on regarde en haut et à gauche, mais plus de pièces sont autorisé
-				else {
-					if (g.getPiece(i,j-1).hasBottomConnector() && g.getPiece(i-1,j).hasRightConnector()) {
-						pt = new Random().nextInt(4,6);
+				else if(j!=0 && i!=0) {
+					if (g.getPiece(i-1,j).hasBottomConnector() && g.getPiece(i,j-1).hasRightConnector()) {
+						pt = new Random().nextInt(2)+4;
 						if (pt==4) {
 							ori = 0;
 						}
@@ -191,7 +193,7 @@ public class Generator {
 						}
 					}
 					else if (g.getPiece(i,j-1).hasBottomConnector()) {
-						pt = new Random().nextInt(1,5);
+						pt = new Random().nextInt(4)+1;
 						if (pt==1) {
 							ori = 0;
 						}
@@ -207,7 +209,7 @@ public class Generator {
 						}
 					}
 					else if (g.getPiece(i-1,j).hasRightConnector()) {
-						pt = new Random().nextInt(1,5);
+						pt = new Random().nextInt(4)+1;
 						if (pt==1) {
 							ori = 3;
 						}
@@ -243,6 +245,7 @@ public class Generator {
 				g.getPiece(k,l).setOrientation(ori);
 			}
 		}
+		return g;
 	}
 
 	public static int[] copyGrid(Grid filledGrid, Grid inputGrid, int i, int j) {
