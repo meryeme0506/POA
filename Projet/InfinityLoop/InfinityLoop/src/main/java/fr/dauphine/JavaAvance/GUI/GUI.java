@@ -1,7 +1,8 @@
 package fr.dauphine.JavaAvance.GUI;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -21,11 +22,14 @@ import fr.dauphine.JavaAvance.Solve.Checker;
  * @Author Emilie Pathammavong
  *
  */
-public class GUI {
+public class GUI  implements ActionListener {
 
-	private JFrame frame;
-	private final int width = 50; // width of the piece
-	private final  int height = 50; // height of the piece
+	private JFrame gridFrame;
+	private final int width = 80;
+	private final  int height = 80;
+	JButton[][] button;
+	Grid output;
+	Checker check;
 
 	/**
 	 * 
@@ -46,7 +50,7 @@ public class GUI {
 						public void run() {
 							GUI window;
 							window = new GUI(grid);
-							window.frame.setVisible(true);
+							window.gridFrame.setVisible(true);
 						}
 					});
 				} catch (IOException e) {
@@ -66,7 +70,10 @@ public class GUI {
 	 */
 	public GUI(Grid grid)   {
 		try{
-			initialize(grid);
+			this.output = grid;
+			this.gridFrame = new JFrame("InfinityLoop");
+			this.button = new JButton[grid.getHeight()][grid.getWidth()];
+			initializeGrid();
 		}catch(MalformedURLException e){
 			System.out.println("Error : "+e);
 		}
@@ -78,20 +85,62 @@ public class GUI {
 	 * @throws IOException
 	 */
 	private void initialize(Grid grid) throws MalformedURLException {
+		JOptionPane.showMessageDialog(gridFrame, "Done", "Congratulations", JOptionPane.PLAIN_MESSAGE);
+	}
 
-		JFrame gridFrame = new JFrame("Level");
-		gridFrame.setLayout(new BoxLayout(gridFrame,BoxLayout.LINE_AXIS));
-		gridFrame.setBounds(0, 0, grid.getHeight() * height, grid.getWidth() * width);
 
-		for (int i = 0; i < grid.getHeight(); i++) { // Les lignes de la grille
-			for (int j = 0; j < grid.getWidth(); j++) { // les colones de la grille
-				JButton jButton = new JButton(getImageIcon(grid.getPiece(i, j)));
+	private void initializeGrid() throws MalformedURLException {
+		gridFrame.setVisible(true);
+		gridFrame.getContentPane().setBackground(Color.PINK);
+		gridFrame.setSize(output.getWidth() * width,output.getHeight() * height);
+		gridFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//panel for buttons
+		JPanel buttonspanel = new JPanel();
+		buttonspanel.setLayout(new GridLayout(output.getHeight(), output.getWidth()));
+
+
+
+		for (int i = 0; i < output.getHeight(); i++) {
+			for (int j = 0; j < output.getWidth(); j++) {
+				ImageIcon icon = new ImageIcon(this.getImageIcon(output.getPiece(i, j)).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+				JButton jButton = new JButton(getImageIcon(output.getPiece(i, j)));
+				jButton.setBackground(Color.white);
+				jButton.setOpaque(true);
+				jButton.setBorderPainted(false);
+				buttonspanel.add(jButton);
+				jButton.addActionListener(this);
+				button[i][j] = jButton;
 			}
 		}
-
+		gridFrame.setBackground(Color.pink);
+		gridFrame.add(buttonspanel);
 		gridFrame.setVisible(true);
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		for (int i = 0; i < output.getHeight(); i++) {
+			for (int j = 0; j < output.getWidth(); j++) {
+				boolean done=false;
+				if (e.getSource() == button[i][j]) {
+					//set the piece that was clicked on to the rotated piece in the grid
+					output.getPiece(i, j).turn();
+					//for each piece that was clicked on we get the image of it and put it in the buttons
+					ImageIcon icon = new ImageIcon(this.getImageIcon(output.getPiece(i, j)).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+					button[i][j].setIcon(icon);
+					check = new Checker();
+					done= check.isSolution(output);
+					if(done ==true){
+						JOptionPane.showMessageDialog(gridFrame, "You Win!", "Winner winner chicken dinner", JOptionPane.PLAIN_MESSAGE);
+						break;
+					}
+
+				}
+			}
+		}
+
+		gridFrame.repaint();
+	}
 	/**
 	 * Display the correct image from the piece's type and orientation
 	 * 
@@ -102,47 +151,49 @@ public class GUI {
 		String path = "";
 		switch (p.getType()) {
 			case VOID -> {
-				path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/background.png";
+				path = "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\background.png";
 			}
 			case ONECONN -> {
 				switch (p.getOrientation()) {
-					case NORTH -> path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/1.png";
-					case EAST -> path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/2.png";
-					case SOUTH -> path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/3.png";
-					case WEST -> path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/4.png";
+					case NORTH -> path = "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\1.png";
+					case EAST -> path = "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\2.png";
+					case SOUTH -> path = "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\3.png";
+					case WEST -> path = "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\4.png";
 				}
 			}
 			case BAR -> {
 				switch (p.getOrientation()) {
-					case NORTH -> path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/5.png";
-					case EAST -> path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/6.png";
+					case NORTH -> path =  "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\5.png";
+					case EAST -> path =  "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\6.png";
 				}
 			}
 			case TTYPE -> {
 				switch (p.getOrientation()) {
-					case NORTH -> path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/7.png";
-					case EAST -> path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/8.png";
-					case SOUTH -> path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/9.png";
-					case WEST -> path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/10.png";
+					case NORTH -> path = "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\7.png";
+					case EAST -> path =  "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\8.png";
+					case SOUTH -> path =  "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\9.png";
+					case WEST -> path =  "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\10.png";
 				}
 			}
 			case FOURCONN -> {
 				if (p.getOrientation() == Orientation.NORTH) {
-					path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/11.png";
+					path =  "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\1.png";
 				}
 			}
 			case LTYPE -> {
 				switch (p.getOrientation()) {
-					case NORTH -> path = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/12.png";
-					case EAST -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/13.png";
-					case SOUTH -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/14.png";
-					case WEST -> path = "file://InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/15.png";
+					case NORTH -> path =  "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\icons12.png";
+					case EAST -> path =  "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\13.png";
+					case SOUTH -> path =  "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\14.png";
+					case WEST -> path =  "C:\\Users\\sarah\\Downloads\\01-Dauphine_Project_Loop\\Dauphine_Project_Loop\\Dauphine_Java_Loop\\src\\main\\resources\\icons\\15.png";
 				}
 			}
 		}
 		return new ImageIcon(path);
-		
-		
 	}
-
+		
+		
+		
 }
+
+

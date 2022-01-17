@@ -17,8 +17,6 @@ import fr.dauphine.JavaAvance.GUI.Grid;
 
 public class Generator {
 
-	private static Grid filledGrid;
-
 	/**
 	 * @param fileName
 	 *            file name
@@ -29,23 +27,30 @@ public class Generator {
 	 * @throws UnsupportedEncodingException
 	 */
 
-	public static void generateLevel(String fileName, Grid inputGrid) {
+	public static Grid generateLevel(String fileName, Grid inputGrid) {
 		try {
-      FileWriter gridtxt = new FileWriter(fileName);
-			int width = inputGrid.getWidth();
-			int height = inputGrid.getHeight();
+			FileWriter gridtxt = new FileWriter(fileName);
 			Grid g = constructLevel(inputGrid);
+			int width = g.getWidth();
+			int height = g.getHeight();
 			gridtxt.write(width);
 			gridtxt.write("\n");
 			gridtxt.write(height);
 			gridtxt.write("\n");
-			gridtxt.write(g.toString());
-      gridtxt.close();
-    }
-    catch (IOException e) {
-      System.out.println("An error occurred.");
-      // e.printStackTrace();
-    }
+			Piece[][] p = g.getAllPieces();
+			for(int i = 0; i < height; i++) {
+				for (int j = 0; j <width ; j++) {
+					String value = Piece.getTypeFromPiece(p[i][j])+" "+p[i][j].getOrientation().getValue()+"\n";
+					gridtxt.write(value);
+				}
+			}
+			gridtxt.close();
+			return g;
+    	}
+		catch (IOException e) {
+    	  System.out.println("An error occurred ");
+   		 }
+		return null;
 	}
 
 	/**
@@ -56,199 +61,74 @@ public class Generator {
 	 * @param g the file we want to check
 	 * @return the grid, translation of the input file
 	 */
-	private static Grid constructLevel(Grid g){
-		Piece p;
-		for (int i = 0 ; i < g.getWidth() ; i++) {
-			for (int j = 0 ; j < g.getHeight() ; j++) {
-				int pt=0;
-				int ori=0;
-				// la première pièce en haut à gauche est la seule qu'on peut choisir
-				//  sans prendre en compte voisins car première
-				if (i==0 && j==0) {
-					pt = new Random().nextInt(3);
-					if (pt==1) {
-						ori  = new Random().nextInt(2)+1;
-					}
-					if (pt==2) {
-						pt = 5;
-						ori = 1;
-					}
+	public static Grid constructLevel(Grid g) {
+		int height = g.getHeight() * 2 - 1;
+		int width = g.getHeight();
+		int[][] p = new int[height][width];
+		Random random = new Random();
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				int temp = random.nextInt(2);
+				if (temp == 1) {
+					p[i][j] = 1;
+				} else {
+					p[i][j] = 0;
 				}
-				// si c'est la ligne d'en haut, on ne s'occupe que du voisin à gauche
-				else if (j==0) {
-					if (g.getPiece(i-1,j).hasRightConnector()) {
-						pt = new Random().nextInt(4);
-						if (pt==0) {
-							pt = 5;
-							ori = new Random().nextInt(2)-1;
-						}
-						if (pt==1) { ori = 3; }
-						if (pt==2) { ori = 1; }
-						if (pt==3) { ori = 2; }
-					}
-					else {
-						pt = new Random().nextInt(3);
-						if (pt==1) {
-							ori = new Random().nextInt(2)+1;
-						}
-						if (pt==2) {
-							pt = 5;
-							ori = 1;
-						}
-					}
-				}
-				// si c'est la colonne de gauche, on ne s'occupe que du voisin du dessus
-				else if (j==0) {
-					if (g.getPiece(i-1,j).hasBottomConnector() ) {
-						pt = new Random().nextInt(4)+1;
-						if (pt==1) { ori = 0; }
-						if (pt==2) { ori = 0; }
-						if (pt==3) { ori = 1; }
-						if (pt==4) {
-							pt = 5;
-							ori = 0;
-						}
-					}
-					else {
-						pt = new Random().nextInt(4);
-						if (pt==1) {
-							ori = new Random().nextInt(2)+1;
-						}
-						if (pt==2) {
-							ori = 1;
-						}
-						if (pt==3) {
-							pt = 5;
-							ori = 1;
-						}
-					}
-				}
-				// si c'est la colonne de droite on regarde le voisin au dessus et à gauche
-				else if (i==g.getWidth()-1) {
-					if (g.getPiece(i,j-1).hasBottomConnector() && g.getPiece(i-1,j).hasRightConnector()) {
-						pt = new Random().nextInt(2);
-						if (pt==0) {
-							pt = 3;
-							ori = 3;
-						}
-						else {
-							pt = 5;
-							ori = 3;
-						}
-					}
-					else if (g.getPiece(i,j-1).hasBottomConnector()) {
-						pt = new Random().nextInt(2)+1;
-						ori = 0;
-					}
-					else if (g.getPiece(i-1,j).hasRightConnector()) {
-						pt = new Random().nextInt(2)+1;
-						if (pt==1) { ori = 3; }
-						else {
-							pt = 5;
-							ori = 2;
-						}
-					}
-					else {
-						pt = new Random().nextInt(2);
-						if (pt==0) { ori = 0; }
-						if (pt==1) { ori = 2; }
-					}
-				}
-				//  si c'est la dernière ligne, on s'occupe du voisin de gauche et du dessus
-				else if (j==g.getHeight()-1) {
-					if (g.getPiece(i-1,j).hasRightConnector() && g.getPiece(i,j-1).hasBottomConnector()) {
-						pt = 5;
-						ori = 3;
-					}
-					else if (g.getPiece(i-1,j).hasRightConnector()) {
-						pt = new Random().nextInt(2)+1;
-						if (pt==1) {
-							ori = 3;
-						}
-						if (pt==2) {
-							ori = 1;
-						}
-					}
-					else if (g.getPiece(i,j-1).hasBottomConnector()) {
-						pt = 1;
-						ori = 0;
-					}
-					else {
-						pt = new Random().nextInt(2);
-						if (pt==0) {
-							ori = 0;
-						}
-						if (pt==1) {
-							ori = 1;
-						}
-					}
-				}
-				// sinon, on regarde en haut et à gauche, mais plus de pièces sont autorisé
-				else if(j!=0 && i!=0) {
-					if (g.getPiece(i-1,j).hasBottomConnector() && g.getPiece(i,j-1).hasRightConnector()) {
-						pt = new Random().nextInt(2)+4;
-						if (pt==4) {
-							ori = 0;
-						}
-						else {
-							ori = 3;
-						}
-					}
-					else if (g.getPiece(i,j-1).hasBottomConnector()) {
-						pt = new Random().nextInt(4)+1;
-						if (pt==1) {
-							ori = 0;
-						}
-						if (pt==2) {
-							ori = 0;
-						}
-						if (pt==3) {
-							ori = 1;
-						}
-						if (pt==4) {
-							pt = 5;
-							ori = 0;
-						}
-					}
-					else if (g.getPiece(i-1,j).hasRightConnector()) {
-						pt = new Random().nextInt(4)+1;
-						if (pt==1) {
-							ori = 3;
-						}
-						if (pt==2) {
-							ori = 1;
-						}
-						if (pt==3) {
-							ori = 2;
-						}
-						if (pt==4) {
-							pt = 5;
-							ori = 2;
-						}
-					}
-					else {
-						pt = new Random().nextInt(2);
-						if (pt==0) {
-							ori = 0;
-						}
-						if (pt==1) {
-							pt = 1;
-						}
-					}
-				}
-				p = new Piece(i,j,pt,ori);
-				g.setPiece(i,j,p);
 			}
 		}
-		// on mélange les positions
-		for (int k = 0 ; k < g.getWidth() ; k++) {
-			for (int l = 0 ; l < g.getHeight() ; l++) {
-				int ori = new Random().nextInt(4);
-				g.getPiece(k,l).setOrientation(ori);
+		for (int i = 0; i < height; i+=2) {
+			for (int j = 0; j < width; j++) {
+				boolean north = false;
+				boolean east = false;
+				boolean south = false;
+				boolean west = false;
+				int nb = 0;
+				if (j < width - 1 && p[i][j] == 1) {
+					west = true;
+					nb++;
+				}
+				if (i > 0 && p[i - 1][j] == 1) {
+					north = true;
+					nb++;
+				}
+				if (i < height-1 && p[i + 1][j] == 1) {
+					south = true;
+					nb++;
+				}
+				if (j > 0 && p[i][j - 1] == 1) {
+					east = true;
+					nb++;
+				}
+
+				Piece piece = null;
+				switch (nb) {
+					case 0:
+						piece = new Piece(i, j, PieceType.VOID, Orientation.NORTH);
+						break;
+					case 1:
+						piece = new Piece(i, j, PieceType.ONECONN, Orientation.NORTH);
+						break;
+					case 2:
+						if ((north && south) || (east && west))
+							piece = new Piece(i, j, PieceType.BAR, Orientation.NORTH);
+						else
+							piece = new Piece(i, j, PieceType.LTYPE, Orientation.NORTH);
+						break;
+					case 3:
+						piece = new Piece(i, j, PieceType.TTYPE, Orientation.NORTH);
+						break;
+					case 4:
+						piece = new Piece(i, j, PieceType.FOURCONN, Orientation.NORTH);
+						break;
+				}
+				piece.setOrientation(random.nextInt(4));
+				g.setPiece(i/2 , j, piece);
 			}
 		}
 		return g;
 	}
+
+
 
 	public static int[] copyGrid(Grid filledGrid, Grid inputGrid, int i, int j) {
 		Piece p;
