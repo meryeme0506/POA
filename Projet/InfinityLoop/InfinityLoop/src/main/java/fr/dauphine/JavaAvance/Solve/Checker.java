@@ -11,6 +11,10 @@ import fr.dauphine.JavaAvance.GUI.Grid;
 public class Checker {
 	private static boolean[][] isPieceChecked;
 
+	/**
+	 * Initializes the isPieceChecked attribut, that keeps track of all connected pieces in a grid
+	 * @param grille a grid, to initialize the array with its width and height
+	 */
 	public static void initIsPieceChecked(Grid grille) {
 		isPieceChecked = new boolean[grille.getHeight()][grille.getWidth()];
 		for (int i = 0; i < grille.getHeight(); i++) {
@@ -20,6 +24,11 @@ public class Checker {
 		}
 	}
 
+	/**
+	 * Constructs a grid from a file
+	 * @param inputFile from wich the grid will be read
+	 * @return the grid created from the file
+	 */
 	public static Grid buildGrid(String inputFile) throws FileNotFoundException {
 		BufferedReader fr = new BufferedReader(new FileReader(inputFile));
 		try {
@@ -41,9 +50,16 @@ public class Checker {
 		return null;
 	}
 
+
+
 	// the method checks the whole grid is solved and initialized IsPieceChecked[i][j] = true
 	// for each well_connected piece with coordinates = (i, j)
 	///pass Grid readGrid result as arg
+	/**
+	 * Tells if a grid is a solution or not.
+	 * @param grid, the grid we are checking
+	 * @return a boolean that says if yes or no the grid is a solution
+	 */
 	public static boolean isSolution(Grid grille ) {
 		initIsPieceChecked(grille);
 		boolean solved = true; // is true is the whole grid is solved
@@ -302,8 +318,3 @@ public class Checker {
 		return matchesEveryNeighbor;
 	}
 }
-
-
-
-
-
