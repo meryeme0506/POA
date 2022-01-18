@@ -14,7 +14,15 @@ import java.util.*;
 
 
 public class Checker {
+
     private static boolean[][] checked;
+
+    /**
+     * Constructs a grid from a file
+     * @param inputFile from wich the grid will be read
+     * @return the grid created from the file
+     * @exception FileNotFoundException if the file isn't found
+     */
     public static Grid buildGrid(String inputFile) throws FileNotFoundException {
         BufferedReader fr = new BufferedReader(new FileReader(inputFile));
         try {
