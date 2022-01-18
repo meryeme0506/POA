@@ -11,3 +11,15 @@ To view the history of the commits please consult the commits of the "Projet" fo
 ```
 make doc
 ```
+**To generate classes :**
+```
+make classes
+```
+**To generate the jar app and execute it (after compiling classes) :**
+```
+make jar
+```
+**To clean the project (delete docs, classes and jar) :**
+```
+make clean
+```
